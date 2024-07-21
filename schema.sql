@@ -1,9 +1,9 @@
 CREATE SCHEMA eventopia;
 
 -- Enum Creation
-CREATE TYPE ticket_status AS ENUM ('BOOKED', 'CANCELLED');
-CREATE TYPE booking_status AS ENUM ('PENDING', 'CONFIRMED', 'CANCELLED');
-CREATE TYPE transaction_status AS ENUM ('SUCCESS', 'FAILURE');
+CREATE TYPE eventopia.ticket_status AS ENUM ('BOOKED', 'CANCELLED');
+CREATE TYPE eventopia.booking_status AS ENUM ('PENDING', 'CONFIRMED', 'CANCELLED');
+CREATE TYPE eventopia.transaction_status AS ENUM ('SUCCESS', 'FAILURE');
 
 -- Roles Table
 CREATE TABLE eventopia.roles (
@@ -87,7 +87,7 @@ CREATE TABLE eventopia.bookings (
     booking_id VARCHAR(32) PRIMARY KEY,
     user_id VARCHAR(32) REFERENCES eventopia.users(user_id),
     total_amount DECIMAL(10, 2) NOT NULL,
-    booking_status booking_status NOT NULL,
+    booking_status eventopia.booking_status NOT NULL,
     created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
     updated_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP
 );
@@ -99,7 +99,7 @@ CREATE TABLE eventopia.tickets (
     attendee_id VARCHAR(32) NOT NULL REFERENCES eventopia.users(user_id),
     seat_id VARCHAR(32) NOT NULL REFERENCES eventopia.seats(seat_id),
     booking_id VARCHAR(32) NOT NULL REFERENCES eventopia.bookings(booking_id),
-    ticket_status ticket_status NOT NULL,
+    ticket_status eventopia.ticket_status NOT NULL,
     created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
     updated_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP
 );
@@ -110,7 +110,7 @@ CREATE TABLE eventopia.payments (
     ticket_id VARCHAR(32) NOT NULL REFERENCES eventopia.tickets(ticket_id),
     amount DECIMAL(10, 2) NOT NULL,
     payment_method VARCHAR(50) NOT NULL,
-    transaction_status transaction_status NOT NULL,
+    transaction_status eventopia.transaction_status NOT NULL,
     transaction_date TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
     created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
     updated_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP
