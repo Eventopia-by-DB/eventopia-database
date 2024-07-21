@@ -6,12 +6,17 @@ The Event Booking Database repository contains SQL scripts and schema definition
 
 ## Schema
 
+- Roles
 - Users
+- User Profiles
+- Categories
 - Events
-- Tickets
-- Payments
+- Event Images
 - Sections
 - Seats
+- Bookings
+- Tickets
+- Payments
 - Reviews
 
 ## Getting Started
